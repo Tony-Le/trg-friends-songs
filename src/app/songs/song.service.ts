@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SongService {
 
-  private songsUrl = 'https://trg-friends-songs-api.herokuapp.com/artists/api/artists/api/search?query=';
+  private songsUrl = 'https://trg-friends-songs-api.herokuapp.com/songs/api/search?query=';
   // private songsUrl = 'http://localhost:8080/songs/api/search?query=';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
@@ -20,7 +20,7 @@ export class SongService {
   }
 
   getSongs(searchQuery: string) {
-    this.messageService.add('SongService: fetched songs');
+    // this.log('fetched songs');
     return this.http.get(this.songsUrl + searchQuery);
   }
 }
