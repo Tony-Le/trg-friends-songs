@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "trg-friends-covers": {
+    "trg-friends-songs": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/trg-friends-covers",
+            "outputPath": "dist/trg-friends-songs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,6 +24,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -62,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "trg-friends-covers:build"
+            "browserTarget": "trg-friends-songs:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "trg-friends-covers:build:production"
+              "browserTarget": "trg-friends-songs:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "trg-friends-covers:build"
+            "browserTarget": "trg-friends-songs:build"
           }
         },
         "test": {
@@ -88,6 +90,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -110,15 +114,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "trg-friends-covers:serve"
+            "devServerTarget": "trg-friends-songs:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "trg-friends-covers:serve:production"
+              "devServerTarget": "trg-friends-songs:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "trg-friends-covers"
+    }
+  },
+  "defaultProject": "trg-friends-songs"
 }

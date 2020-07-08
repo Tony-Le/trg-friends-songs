@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'trg-friends-covers'`, () => {
+  it(`should have as title 'trg-friends-songs'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('trg-friends-covers');
+    expect(app.title).toEqual('trg-friends-songs');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('trg-friends-covers app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('trg-friends-songs app is running!');
   });
 });

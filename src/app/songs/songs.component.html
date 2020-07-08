@@ -1,0 +1,17 @@
+<input #search (keyup)="this.getSongs(search.value)" type="text" class="form-control" placeholder="Search for a song here" aria-label="" aria-describedby="1">
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Theme</th>
+            <th scope="col">Artist</th>
+            <th scope="col">Origin</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let song of songs">
+            <td>{{song.theme}}</td>
+            <td>{{song.artist}} <span *ngIf="song.featuring">ft. {{song.featuring}}</span></td>
+            <td>{{song.origin}}</td>
+        </tr>
+    </tbody>
+</table>
