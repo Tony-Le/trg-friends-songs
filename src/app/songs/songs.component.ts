@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Song } from './song';
 import { SongService } from './song.service';
+import { UserAlertService } from '../user-alert/user-alert.service';
 
 
 @Component({
@@ -11,13 +12,21 @@ import { SongService } from './song.service';
 export class SongsComponent implements OnInit {
 
   songs: Song[];
+  message: string;
 
-  constructor(private songService: SongService) { }
+  constructor(private songService: SongService, private userAlertService: UserAlertService) { }
 
   getSongs(searchQuery: string): void {
       this.songService.getSongs(searchQuery).subscribe(data => {
         const resp = JSON.parse(JSON.stringify(data));
-        this.songs = resp._embedded.songList;
+        if (resp._embedded) {
+          this.userAlertService.clear();
+          this.message = '';
+          this.songs = resp._embedded['songList'];
+        }
+        else if (!resp._embedded) {
+          this.message = 'No results found.';
+        }
       });
   }
 
