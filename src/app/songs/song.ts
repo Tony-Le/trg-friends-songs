@@ -1,7 +1,8 @@
+import { identifierModuleUrl } from '@angular/compiler';
+
 export interface Song {
-    artist: string;
-    origin: string;
-    theme: string;
-    featuring: string;
-    link: string;
+    _id: string;
+    id: string;
+    title: string;
+    tags: string[];
 }

@@ -3,16 +3,15 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Theme</th>
-            <th scope="col">Artist</th>
-            <th scope="col">Origin</th>
+            <th scope="col">Title</th>
+            <th scope="col">Link</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let song of songs">
-            <td>{{song.theme}}</td>
-            <td>{{song.artist}} <span *ngIf="song.featuring">ft. {{song.featuring}}</span></td>
-            <td>{{song.origin}}</td>
+            <td>{{song.title}}</td>
+            <td><a href="https://www.youtube.com/watch?v={{song.id}}">https://www.youtube.com/watch?v={{song.id}}</a></td>
+
         </tr>
     </tbody>
 </table>
