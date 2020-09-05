@@ -1,17 +1,57 @@
-<input #search (keyup)="this.getSongs(search.value)" type="text" class="form-control" placeholder="Search for a song here" aria-label="" aria-describedby="1">
-<div>{{message}}</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Link</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let song of songs">
-            <td>{{song.title}}</td>
-            <td><a href="https://www.youtube.com/watch?v={{song.id}}">https://www.youtube.com/watch?v={{song.id}}</a></td>
+<div class="sticky"><input #search (keyup)="this.getSongs(search.value)" type="text" class="form-control"
+    placeholder="Search for a song here" aria-label="" aria-describedby="1">
+<div >{{message}}</div>
+</div>
+<div id="player"></div>
 
-        </tr>
-    </tbody>
-</table>
+<div id="playerDiv" class="hidden"></div>
+<div class="scroll">
+    <div id="scrollSpinner" class="hidden">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div *ngFor="let song of songs; let i=index">
+        <ng-container *ngIf="i % 3 == 0">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <a (click)=this.displayInPlayer(songs[i].id) href="https://www.youtube.com/watch?v={{songs[i].id}}"><img
+                                class="img-fluid" src="https://i.ytimg.com/vi/{{songs[i].id}}/hqdefault.jpg"></a>
+                        <div class="card-body">
+                            <a class="card-title" (click)=this.displayInPlayer(songs[i].id)
+                                href="https://www.youtube.com/watch?v={{songs[i].id}}">{{songs[i].title}}</a>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="songs[i+1]">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <a (click)=this.displayInPlayer(songs[i+1].id)
+                                href="https://www.youtube.com/watch?v={{songs[i+1].id}}"><img class="img-fluid"
+                                    src="https://i.ytimg.com/vi/{{songs[i+1].id}}/hqdefault.jpg"></a>
+                            <div class="card-body">
+                                <a class="card-title" (click)=this.displayInPlayer(songs[i+1].id)
+                                    href="https://www.youtube.com/watch?v={{songs[i+1].id}}">{{songs[i+1].title}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="songs[i+2]">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <a (click)=this.displayInPlayer(songs[i+2].id)
+                                href="https://www.youtube.com/watch?v={{songs[i+2].id}}"><img class="img-fluid"
+                                    src="https://i.ytimg.com/vi/{{songs[i+2].id}}/hqdefault.jpg"></a>
+                            <div class="card-body">
+                                <a class="card-title" (click)=this.displayInPlayer(songs[i+2].id)
+                                    href="https://www.youtube.com/watch?v={{songs[i+2].id}}">{{songs[i+2].title}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<button id=scrollToTop (click)="this.topFunction()">Top</button>
