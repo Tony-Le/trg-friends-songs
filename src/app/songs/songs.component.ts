@@ -12,12 +12,14 @@ export class SongsComponent implements OnInit {
 
   songs: Song[];
   message: string;
+  static randomSearch = ['mario', 'pokemon', 'zelda'];
 
   constructor(private songService: SongService, private userAlertService: UserAlertService) { }
 
   ngOnInit(): void {
     // Best practice to call here instead of inside constructor, reserve constructor for intiialization.
-    this.getSongs('');
+    const rand = Math.floor(Math.random() * (SongsComponent.randomSearch.length));
+    this.getSongs(SongsComponent.randomSearch[rand]);
     window.onscroll = this.toggleScrollButtonVisibility;
   }
 

@@ -6,10 +6,8 @@
 
 <div id="playerDiv" class="hidden"></div>
 <div class="scroll">
-    <div id="scrollSpinner" class="hidden">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
+    <div id="scrollSpinner" class="spinner-border hidden" role="status">
+        <span class="sr-only">Loading...</span>
     </div>
     <div *ngFor="let song of songs; let i=index">
         <ng-container *ngIf="i % 3 == 0">
