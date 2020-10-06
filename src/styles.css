@@ -32,6 +32,11 @@ div.sticky {
     z-index: 1;
     background-color: white;
 }
+
+.scroll {
+    height: 90vh;
+}
+
 #scrollSpinner {
     position: sticky;
     left: 50%;

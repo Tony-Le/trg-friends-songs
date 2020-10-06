@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from './song';
 import { SongService } from './song.service';
 import { UserAlertService } from '../user-alert/user-alert.service';
+import { AppComponent } from '../app.component'
 
 @Component({
   selector: 'app-songs',
@@ -14,13 +15,12 @@ export class SongsComponent implements OnInit {
   message: string;
   static randomSearch = ['mario', 'pokemon', 'zelda'];
 
-  constructor(private songService: SongService, private userAlertService: UserAlertService) { }
+  constructor(private songService: SongService, private userAlertService: UserAlertService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
     // Best practice to call here instead of inside constructor, reserve constructor for intiialization.
     const rand = Math.floor(Math.random() * (SongsComponent.randomSearch.length));
     this.getSongs(SongsComponent.randomSearch[rand]);
-    window.onscroll = this.toggleScrollButtonVisibility;
   }
 
   getSongs(searchQuery: string): void {
@@ -64,24 +64,6 @@ export class SongsComponent implements OnInit {
       playerDiv.removeChild(playerDiv.firstChild);
     }
     playerDiv.appendChild(newPlayer);
-    this.topFunction();
-  }
-
-  
-
-  toggleScrollButtonVisibility() {
-    const scrollToTopButton = document.getElementById('scrollToTop');
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      scrollToTopButton.style.display = "block";
-    } else {
-      scrollToTopButton.style.display = "none";
-    }
-  }
-
-  topFunction() {
-    window.scroll({
-      top: 0,
-      behavior: 'smooth'
-    });
+    this.appComponent.topFunction();
   }
 }
