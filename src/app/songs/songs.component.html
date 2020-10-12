@@ -5,7 +5,14 @@
 <div id="player"></div>
 
 <div id="playerDiv" class="hidden"></div>
-<div class="scroll">
+<div 
+        class="scroll" 
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="getMoreSongs()"
+        [scrollWindow]="true"
+    >
     <div id="scrollSpinner" class="spinner-border hidden" role="status">
         <span class="sr-only">Loading...</span>
     </div>

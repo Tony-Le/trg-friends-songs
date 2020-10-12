@@ -15,14 +15,25 @@ export class SongService {
 
   constructor(private http: HttpClient, private userAlertService: UserAlertService) { }
 
-  getSongs(searchQuery: string) {
+  // todo: modify to also optionally get page number
+  getSongs(searchQuery: string, pageNumber: number = 0) {
     // this.log('fetched songs');
-    return this.http.get(this.songsUrl + searchQuery)
+    if (pageNumber > 0) {
+      return this.http.get(this.songsUrl + searchQuery + "&pageNumber=" + pageNumber)
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError('getSongs', []))
       );
+    } 
+    else {
+      return this.http.get(this.songsUrl + searchQuery)
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError('getSongs', []))
+      );
+    }
   }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {  
       // TODO: send the error to remote logging infrastructure
