@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from './song';
 import { SongService } from './song.service';
 import { UserAlertService } from '../user-alert/user-alert.service';
+import { AppComponent } from '../app.component'
 
 @Component({
   selector: 'app-songs',
@@ -11,19 +12,22 @@ import { UserAlertService } from '../user-alert/user-alert.service';
 export class SongsComponent implements OnInit {
 
   songs: Song[];
+  currentSearchQuery: string;
+  currentSearchPage: number;
   message: string;
   static randomSearch = ['mario', 'pokemon', 'zelda'];
 
-  constructor(private songService: SongService, private userAlertService: UserAlertService) { }
+  constructor(private songService: SongService, private userAlertService: UserAlertService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
     // Best practice to call here instead of inside constructor, reserve constructor for intiialization.
     const rand = Math.floor(Math.random() * (SongsComponent.randomSearch.length));
     this.getSongs(SongsComponent.randomSearch[rand]);
-    window.onscroll = this.toggleScrollButtonVisibility;
   }
 
   getSongs(searchQuery: string): void {
+    this.currentSearchQuery = searchQuery;
+    this.currentSearchPage = 0;
     const loadingSpinner = document.getElementById("scrollSpinner");
     if (loadingSpinner.classList.contains("hidden")) {
       loadingSpinner.classList.add("shown");
@@ -35,6 +39,7 @@ export class SongsComponent implements OnInit {
         this.userAlertService.clear();
         this.message = '';
         this.songs = resp._embedded['songList'];
+        
       }
       else if (!resp._embedded) {
         this.message = 'No results found.';
@@ -45,6 +50,28 @@ export class SongsComponent implements OnInit {
       }
     });
   }
+
+  getMoreSongs(): void {
+    console.log('reached bottom')
+    this.currentSearchPage += 1;
+    const loadingSpinner = document.getElementById("scrollSpinner");
+    if (loadingSpinner.classList.contains("hidden")) {
+      loadingSpinner.classList.add("shown");
+      loadingSpinner.classList.remove("hidden");
+    }
+    this.songService.getSongs(this.currentSearchQuery, this.currentSearchPage).subscribe(data => {
+      const resp = JSON.parse(JSON.stringify(data));
+      if (resp._embedded) {
+        this.userAlertService.clear();
+        this.songs = this.songs.concat(resp._embedded['songList']);
+      }
+      if (loadingSpinner.classList.contains("shown")) {
+        loadingSpinner.classList.add("hidden");
+        loadingSpinner.classList.remove("shown");
+      }
+    });
+  }
+  
 
   displayInPlayer(id: string): void {
     event.preventDefault();
@@ -64,24 +91,6 @@ export class SongsComponent implements OnInit {
       playerDiv.removeChild(playerDiv.firstChild);
     }
     playerDiv.appendChild(newPlayer);
-    this.topFunction();
-  }
-
-  
-
-  toggleScrollButtonVisibility() {
-    const scrollToTopButton = document.getElementById('scrollToTop');
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      scrollToTopButton.style.display = "block";
-    } else {
-      scrollToTopButton.style.display = "none";
-    }
-  }
-
-  topFunction() {
-    window.scroll({
-      top: 0,
-      behavior: 'smooth'
-    });
+    this.appComponent.topFunction();
   }
 }
