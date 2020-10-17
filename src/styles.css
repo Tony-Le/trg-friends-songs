@@ -33,12 +33,9 @@ div.sticky {
     background-color: white;
 }
 
-
 #scrollSpinner {
-    position: sticky;
+    position: relative;
     left: 50%;
-    top: 50%;
-    z-index: 1;
 }
 
 #scrollToTop {
