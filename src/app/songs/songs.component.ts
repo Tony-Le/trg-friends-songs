@@ -3,6 +3,8 @@ import { Song } from './song';
 import { SongService } from './song.service';
 import { UserAlertService } from '../user-alert/user-alert.service';
 import { AppComponent } from '../app.component'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { SongSearchComponent } from '../song-search/song-search.component'
 
 @Component({
   selector: 'app-songs',
@@ -17,12 +19,19 @@ export class SongsComponent implements OnInit {
   message: string;
   static randomSearch = ['mario', 'pokemon', 'zelda'];
 
-  constructor(private songService: SongService, private userAlertService: UserAlertService, private appComponent: AppComponent) { }
+  constructor(private songService: SongService, private userAlertService: UserAlertService, private appComponent: AppComponent, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // Best practice to call here instead of inside constructor, reserve constructor for intiialization.
-    const rand = Math.floor(Math.random() * (SongsComponent.randomSearch.length));
-    this.getSongs(SongsComponent.randomSearch[rand]);
+    // Best practice to call here instead of inside constructor, reserve constructor for initialization.
+    
+    this.route.queryParams.subscribe(params => {
+      this.currentSearchQuery = params['searchQuery'];
+      this.getSongs(this.currentSearchQuery)
+    });
+    if (this.currentSearchQuery == '' || this.currentSearchQuery == null) {
+      const rand = Math.floor(Math.random() * (SongsComponent.randomSearch.length));
+      this.getSongs(SongsComponent.randomSearch[rand]);
+    }
   }
 
   getSongs(searchQuery: string): void {

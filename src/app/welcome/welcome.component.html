@@ -1,0 +1,16 @@
+<h2>About Project</h2>
+<p>
+    This is a front-end web app made in Angular to serve search results from a back-end server made in Java Spring also made by me. 
+    The back-end server uses a NoSQL MongoDB that holds Youtube video information which were obtained through Youtube's API. This MongoDB
+    database currently holds information on videos uploaded by five of the members of The Runaway Guys Colloseum, whose work is to create 
+    songs, music or covers related to video games. The back-end server uses Java Spring to search the database using full-text search provided
+    by MongoDB. Then search results get displayed in the Angular front-end. Clicking on search results will open up an embedded Youtube player 
+    to watch the video in the web app.
+</p>
+<p>
+    To learn about the other members of The Runaway Guys Colosseum and their annual charity event, check out 
+    <a href="https://www.therunawayguys.com/colosseum-direct">https://www.therunawayguys.com/colosseum-direct</a>.
+    If you do not know what to search for try searching "<a [routerLink]="['/songs']" [queryParams]="{searchQuery: 'pollyanna jazz' }">pollyanna jazz</a>"
+</p>
+<div>*Note: The first search will take a minute or so to load as the back-end server will require some time to wake up.</div>
+<app-song-search></app-song-search>

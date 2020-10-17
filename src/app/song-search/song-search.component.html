@@ -1,0 +1,6 @@
+<div class="input-group">
+    <input #search (keyup.enter)="this.goToSearchSong(search.value)" type="text" class="form-control" placeholder="Search for a song here" value="{{this.value}}">
+    <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="button" (click)="this.goToSearchSong(search.value)">Search</button>
+    </div>
+</div>
